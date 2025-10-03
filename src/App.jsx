@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import { FaWhatsapp, FaLink, FaClipboard, FaTrash, FaPen, FaAddressBook, FaSave } from 'react-icons/fa';
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
 
   const [nomeContato, setNomeContato] = useState('');
   const [numeroContato, setNumeroContato] = useState('');
-  const [contatos, setContatos] = useState([ ]);
+  const [contatos, setContatos] = useState([
+  ]);
   const [editandoId, setEditandoId] = useState(null);
 
   const formatarNumeroTelefone = (valor) => {
@@ -87,119 +89,102 @@ function App() {
 
 
   return (
-    <div>
-      <header>
-        <h1><FaWhatsapp /> WhatsHub</h1>
+    <div className="container">
+      <header className="cabecalho">
+        <h1><FaWhatsapp style={{ color: '#25D366' }} /> WhatsHub</h1>
         <p>O jeito mais rápido de iniciar conversas no WhatsApp. Gere links instantâneos e mantenha seus contatos organizados.</p>
       </header>
-
-      <hr />
-
-      <main>
-        <section>
-          <h2><FaLink /> Gerador de Links</h2>
-          <div>
-            <label htmlFor="whatsapp-number">Número do WhatsApp</label>
-            <br />
+      <main className="conteudo-principal">
+        <div className="cartao">
+          <h2 className="cartao-titulo"><FaLink /> Gerador de Links</h2>
+          <div className="grupo-formulario">
+            <label>Número do WhatsApp</label>
             <input
-              id="whatsapp-number"
               type="text"
               placeholder="(44) 91234-1234"
               value={numeroTelefone}
               onChange={aoMudarNumeroTelefonePrincipal}
             />
           </div>
-          <div style={{ marginTop: '1rem' }}>
-            <label htmlFor="message">Mensagem (opcional)</label>
-            <br />
+          <div className="grupo-formulario">
+            <label>Mensagem (opcional)</label>
             <textarea
-              id="message"
               placeholder="Digite sua mensagem aqui..."
               value={mensagem}
               onChange={(evento) => setMensagem(evento.target.value)}
             ></textarea>
           </div>
-          <button style={{ marginTop: '1rem' }} onClick={prepararMensagem}>
+          <button className="botao botao-primario" onClick={prepararMensagem}>
             Preparar Mensagem
           </button>
           {linkGerado && (
-            <div style={{ marginTop: '1rem' }}>
-              <label htmlFor="generated-link">Link gerado:</label>
-              <br />
-              <input 
-                id="generated-link"
-                type="text" 
-                value={linkGerado} 
-                readOnly 
-              />
-              <button onClick={copiarParaAreaDeTransferencia}>
-                <FaClipboard /> Copiar
-              </button>
-              <br />
-              <a href={linkGerado} target="_blank" rel="noopener noreferrer">
-                <button style={{ marginTop: '0.5rem' }}>Abrir WhatsApp</button>
+            <div className="container-link-gerado">
+              <label>Link gerado:</label>
+              <div className="saida-link">
+                <span>{linkGerado}</span>
+                <button className="botao-icone" onClick={copiarParaAreaDeTransferencia}>
+                  <FaClipboard />
+                </button>
+              </div>
+              <a href={linkGerado} target="_blank" rel="noopener noreferrer" className="botao botao-secundario">
+                Abrir WhatsApp
               </a>
             </div>
           )}
-        </section>
+        </div>
 
-        <hr />
-
-        <section>
-          <h2><FaAddressBook /> Agenda de Contatos</h2>
-          <div>
-            <label htmlFor="contact-name">Nome</label>
-            <br />
-            <input
-              id="contact-name"
-              type="text"
-              placeholder="Nome do contato"
-              value={nomeContato}
-              onChange={(evento) => setNomeContato(evento.target.value)}
-            />
+        <div className="cartao">
+          <h2 className="cartao-titulo"><FaAddressBook /> Agenda de Contatos</h2>
+          <div className="formulario-contato">
+            <div className="grupo-formulario">
+              <label>Nome</label>
+              <input
+                type="text"
+                placeholder="Nome do contato"
+                value={nomeContato}
+                onChange={(evento) => setNomeContato(evento.target.value)}
+              />
+            </div>
+            <div className="grupo-formulario">
+              <label>Número</label>
+              <input
+                type="text"
+                placeholder="Número"
+                value={numeroContato}
+                onChange={aoMudarNumeroContato}
+              />
+            </div>
           </div>
-          <div style={{ marginTop: '1rem' }}>
-            <label htmlFor="contact-number">Número</label>
-            <br />
-            <input
-              id="contact-number"
-              type="text"
-              placeholder="Número"
-              value={numeroContato}
-              onChange={aoMudarNumeroContato}
-            />
-          </div>
-          <button style={{ marginTop: '1rem' }} onClick={salvarContato}>
+          <button className="botao botao-primario botao-salvar" onClick={salvarContato}>
             <FaSave /> {editandoId ? 'Atualizar na Agenda' : 'Salvar na Agenda'}
           </button>
 
-          <div style={{ marginTop: '2rem' }}>
+          <div className="lista-contatos">
             <h3>Seus Contatos ({contatos.length})</h3>
             {contatos.map(contato => (
-              <div key={contato.id} style={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}>
-                <div>
-                  <strong>{contato.nome}</strong>
-                  <br />
-                  <span>{contato.numero}</span>
+              <div key={contato.id} className="item-contato">
+                <div className="info-contato">
+                  <span className="nome-contato">{contato.nome}</span>
+                  <span className="numero-contato">{contato.numero}</span>
                 </div>
-                <div style={{ marginTop: '0.5rem' }}>
-                  <button onClick={() => {
+                <div className="acoes-contato">
+                  <button className="botao-acao-contato" onClick={() => {
                     const numeroLimpo = contato.numero.replace(/\D/g, '');
                     window.open(`https://wa.me/55${numeroLimpo}`, '_blank');
                   }}>
                     Mensagem
                   </button>
-                  <button onClick={() => editarContato(contato)}>
-                    <FaPen /> Editar
+                  <button className="botao-icone" onClick={() => editarContato(contato)}>
+                    <FaPen />
                   </button>
-                  <button onClick={() => deletarContato(contato.id)}>
-                    <FaTrash /> Deletar
+                  <button className="botao-icone botao-deletar" onClick={() => deletarContato(contato.id)}>
+                    <FaTrash />
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
       </main>
     </div>
   );
