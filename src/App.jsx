@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import GeradorDeLinks from './components/GeradorDeLinks.jsx';
 import Agenda from './components/Agenda.jsx';
-import './App.css'; 
+import './App.css';
+import { supabase } from './supabaseClient.js';
 
-function App() {  const [numeroTelefone, setNumeroTelefone] = useState('');
+function App() {
+  const [numeroTelefone, setNumeroTelefone] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [linkGerado, setLinkGerado] = useState('');
-  
+
   const [nomeContato, setNomeContato] = useState('');
   const [numeroContato, setNumeroContato] = useState('');
-  const [contatos, setContatos] = useState([
-  ]);
+  const [contatos, setContatos] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
+
+  useEffect(() => {
+    buscarContatos();
+  }, []);
+
+  async function buscarContatos() {
+    const { data, error } = await supabase
+      .from('contatos')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) console.error('Erro ao buscar contatos:', error);
+    else setContatos(data);
+  }
 
   const formatarNumeroTelefone = (valor) => {
     const numeroLimpo = valor.replace(/\D/g, '');
     let formatado = '';
-    if (numeroLimpo.length > 0) { formatado = `(${numeroLimpo.substring(0, 2)}`; }
-    if (numeroLimpo.length > 2) { formatado += `) ${numeroLimpo.substring(2, 7)}`; }
-    if (numeroLimpo.length > 7) { formatado += `-${numeroLimpo.substring(7, 11)}`; }
+    if (numeroLimpo.length > 0) formatado = `(${numeroLimpo.substring(0, 2)}`;
+    if (numeroLimpo.length > 2) formatado += `) ${numeroLimpo.substring(2, 7)}`;
+    if (numeroLimpo.length > 7) formatado += `-${numeroLimpo.substring(7, 11)}`;
     return formatado;
   };
 
@@ -38,20 +52,35 @@ function App() {  const [numeroTelefone, setNumeroTelefone] = useState('');
     alert('Link copiado para a área de transferência!');
   };
 
-  const salvarContato = () => {
+  async function salvarContato() {
     if (!nomeContato || !numeroContato) {
-      alert('Por favor, preencha o nome e o número do contato.');
+      alert('Preencha o nome e o número do contato.');
       return;
     }
-    if (editandoId !== null) {
-      setContatos(contatos.map(c => c.id === editandoId ? { ...c, nome: nomeContato, numero: numeroContato } : c));
-      setEditandoId(null);
+
+    if (editandoId) {
+      const { error } = await supabase
+        .from('contatos')
+        .update({ nome: nomeContato, numero: numeroContato })
+        .eq('id', editandoId);
+
+      if (error) console.error('Erro ao atualizar contato:', error);
+      else {
+        setEditandoId(null);
+        buscarContatos();
+      }
     } else {
-      setContatos([...contatos, { id: Date.now(), nome: nomeContato, numero: numeroContato }]);
+      const { error } = await supabase
+        .from('contatos')
+        .insert([{ nome: nomeContato, numero: numeroContato }]);
+
+      if (error) console.error('Erro ao salvar contato:', error);
+      else buscarContatos();
     }
+
     setNomeContato('');
     setNumeroContato('');
-  };
+  }
 
   const editarContato = (contato) => {
     setEditandoId(contato.id);
@@ -59,9 +88,11 @@ function App() {  const [numeroTelefone, setNumeroTelefone] = useState('');
     setNumeroContato(contato.numero);
   };
 
-  const deletarContato = (id) => {
-    setContatos(contatos.filter(c => c.id !== id));
-  };
+  async function deletarContato(id) {
+    const { error } = await supabase.from('contatos').delete().eq('id', id);
+    if (error) console.error('Erro ao deletar contato:', error);
+    else buscarContatos();
+  }
 
   return (
     <div className="container">
@@ -82,6 +113,7 @@ function App() {  const [numeroTelefone, setNumeroTelefone] = useState('');
             onCopiarLink={copiarParaAreaDeTransferencia}
           />
         </div>
+
         <div className="cartao">
           <Agenda
             nomeContato={nomeContato}

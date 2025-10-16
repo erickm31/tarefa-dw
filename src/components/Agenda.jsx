@@ -32,7 +32,7 @@ function Agenda({
           <input
             id="contact-number"
             type="text"
-            placeholder="Número"
+            placeholder="(44) 91234-1234"
             value={numeroContato}
             onChange={onNumeroChange}
           />

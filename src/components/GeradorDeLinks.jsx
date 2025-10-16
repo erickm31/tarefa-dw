@@ -36,7 +36,7 @@ function GeradorDeLinks({
       </div>
 
       <button className="botao botao-primario" onClick={onGerarLink}>
-        Preparar Mensagem
+        Gerar Link e QR Code
       </button>
 
       {linkGerado && (
@@ -48,23 +48,21 @@ function GeradorDeLinks({
               <FaClipboard />
             </button>
           </div>
-
+          
           <a
             href={linkGerado}
             target="_blank"
             rel="noopener noreferrer"
             className="botao botao-secundario"
           >
-            Abrir WhatsApp
+            Abrir no WhatsApp
           </a>
 
-
-          <div className="qr-code-container" style={{ marginTop: '1rem', textAlign: 'center' }}>
+          <div className="qr-code-container">
             <h4>QR Code do link:</h4>
             <img
               src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(linkGerado)}`}
               alt="QR Code do link"
-              style={{ marginTop: '0.5rem', borderRadius: '8px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
             />
           </div>
         </div>
