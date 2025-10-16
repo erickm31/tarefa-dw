@@ -1,33 +1,67 @@
-link onde a apliação foi hospedada https://whatshub-utfpr.vercel.app
-
-Sobre o projeto:
-
-    -O WhatsHub é uma aplicação web focada em dois objetivos:
-      -Gerar links para Whatsapp: O usuario pode criar links instantanamente a partir do numero de telefone e adicionar uma mensagem opcional, não tendo a necessidadde de salvar um contato na agenda do celular;
-      -manter uma agenda de contatos local: Oferece uma agenda simples para que o usuário possa salvar contatos recorrentes diretamente na aplicação, facilitando mensagens futuras;
-
-    -funcionalidades:
-      -Criar um link: Cria um link com o numero de telefone;
-      -Copiar link: Botão para copiar o link gerado para a área de transferência;
-      -Abrir whatsapp: Abre o link diretamente em uma nova aba, iniciando a conversa;
-      -Agende de contatos:Salva, edita e remove contatos, que ficam armazenados no banco de dados PostgreSQL do Supabase;
-
-    -Tecnologias utilizadas:
-      -React.js: utilizado para criação da interface;
-      -Supabase: utilizado como banco de dados e autenticador;
-      -React icons: Icones da interface;
-      -API pública de QR Code (QRServer): Utilizada para criação de QRCodes
-
-    -Execução do Projeto:
-      -Para executar o projeto são necessario:
-        -node.js
-        -npm
-      -passo a passo:
-        -clone o repositorio na sua maquina
-          - git clone https://github.com/erickm31/tarefa-dw.git
-          - cd tarefa-dw
-          
+WhatsHub 🚀
 
 
-    -funcionalidades extras:
-      -implementamos uma API que cria um QRCode a partir do link gerado pela aplicação, facilitando em encaminhar mensagens futuras 
+
+
+
+
+Acesse a aplicação: WhatsHub Online
+ 🌐
+
+🔹 Sobre o Projeto
+
+O WhatsHub é uma aplicação web com dois objetivos principais:
+
+Gerar links para WhatsApp
+Crie links instantaneamente a partir do número de telefone, com mensagem opcional — sem precisar salvar o contato na agenda do celular.
+
+Agenda de contatos local
+Salve contatos recorrentes diretamente na aplicação, facilitando mensagens futuras.
+
+✨ Funcionalidades
+
+Criar link: Gere links para iniciar conversas no WhatsApp.
+
+Copiar link: Copie o link gerado para a área de transferência.
+
+Abrir WhatsApp: Abra o link em uma nova aba e inicie a conversa.
+
+Agenda de contatos: Salve, edite e remova contatos no banco de dados PostgreSQL do Supabase.
+
+QR Code: Gere QR Codes a partir do link, facilitando o compartilhamento.
+
+🛠️ Tecnologias
+
+React.js – Criação da interface dinâmica.
+
+Supabase – Banco de dados e autenticação.
+
+React Icons – Ícones da interface.
+
+API QRServer – Geração de QR Codes a partir dos links.
+
+💻 Como Executar
+
+Pré-requisitos:
+
+Node.js
+
+NPM
+
+Passo a passo:
+
+# Clone o repositório
+git clone https://github.com/erickm31/tarefa-dw.git
+
+# Entre na pasta do projeto
+cd tarefa-dw
+
+# Instale as dependências
+npm install
+
+# Execute a aplicação
+npm start
+
+🚀 Funcionalidades Extras
+
+QR Code: Integração com API que gera QR Codes a partir dos links criados, tornando o envio de mensagens mais rápido e prático.
