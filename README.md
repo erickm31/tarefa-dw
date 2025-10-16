@@ -5,7 +5,7 @@ WhatsHub 🚀
 
 
 
-Acesse a aplicação: WhatsHub Online
+Acesse a aplicação: https://whatshub-utfpr.vercel.app
  🌐
 
 🔹 Sobre o Projeto
