@@ -1,16 +1,33 @@
-# React + Vite
+link onde a apliação foi hospedada https://whatshub-utfpr.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sobre o projeto:
 
-Currently, two official plugins are available:
+    -O WhatsHub é uma aplicação web focada em dois objetivos:
+      -Gerar links para Whatsapp: O usuario pode criar links instantanamente a partir do numero de telefone e adicionar uma mensagem opcional, não tendo a necessidadde de salvar um contato na agenda do celular;
+      -manter uma agenda de contatos local: Oferece uma agenda simples para que o usuário possa salvar contatos recorrentes diretamente na aplicação, facilitando mensagens futuras;
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    -funcionalidades:
+      -Criar um link: Cria um link com o numero de telefone;
+      -Copiar link: Botão para copiar o link gerado para a área de transferência;
+      -Abrir whatsapp: Abre o link diretamente em uma nova aba, iniciando a conversa;
+      -Agende de contatos:Salva, edita e remove contatos, que ficam armazenados no banco de dados PostgreSQL do Supabase;
 
-## React Compiler
+    -Tecnologias utilizadas:
+      -React.js: utilizado para criação da interface;
+      -Supabase: utilizado como banco de dados e autenticador;
+      -React icons: Icones da interface;
+      -API pública de QR Code (QRServer): Utilizada para criação de QRCodes
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+    -Execução do Projeto:
+      -Para executar o projeto são necessario:
+        -node.js
+        -npm
+      -passo a passo:
+        -clone o repositorio na sua maquina
+          - git clone https://github.com/erickm31/tarefa-dw.git
+          - cd tarefa-dw
+          
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    -funcionalidades extras:
+      -implementamos uma API que cria um QRCode a partir do link gerado pela aplicação, facilitando em encaminhar mensagens futuras 
